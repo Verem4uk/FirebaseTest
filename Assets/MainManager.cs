@@ -14,7 +14,7 @@ public class MainManager : MonoBehaviour
     Text mainText;
 
     [SerializeField]
-    Text inputText;
+    InputField inputText;
 
     [SerializeField]
     Text nameText;
@@ -23,6 +23,7 @@ public class MainManager : MonoBehaviour
     string myName;
 
     DatabaseReference dataRef;
+    bool firstRequest = true;
 
     struct Message 
     {
@@ -36,80 +37,83 @@ public class MainManager : MonoBehaviour
         }
     }
 
-void Start()
+    void Start()
     {
-        // Set up the Editor before calling into the realtime database.
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://testchat-b3f0a.firebaseio.com/");
-
-        // Get the root reference location of the database.
         dataRef = FirebaseDatabase.DefaultInstance.GetReference("messages");
         dataRef.ValueChanged += HandleValueChanged;
     }
 
-
+    public void ChangeMyName()
+    {
+        myName = nameText.text;
+        print("имя изменено на " + myName);
+    }
 
     public void SendMessage()
     {
-        
-        if (string.IsNullOrEmpty(myName))
-        {
-            myName = nameText.text;
-            print("имя " +myName);
-        }
-               
-        print("сообщение " + inputText.text);
+        if (string.IsNullOrEmpty(myName)) ChangeMyName();
         myMessage = inputText.text;
-
         if (!string.IsNullOrEmpty(myMessage))
-        {
-            print("сообщение "+myMessage);
+        {            
             Message message = new Message(myName, myMessage);
-            // string serialized = JsonUtility.ToJson(message, Form)
-            //JsonConvert.SerializeObject(data, Formatting.Indented);
             string toSend = JsonUtility.ToJson(message);
-            //string toSend = message.name + ": " + message.text;
             PostToDatabase(toSend);
         }
 
         inputText.text = "";
     }
 
-    /*
-     private void writeNewUser(string userId, string name, string email) {
-    User user = new User(name, email);
-    string json = JsonUtility.ToJson(user);
-
-    mDatabaseRef.Child("users").Child(userId).SetRawJsonValueAsync(json);
-}
-     */
-
     void PostToDatabase(string message)
     {
-        dataRef.Push().SetRawJsonValueAsync(message);
-        print(message);
-        // string json = JsonUtility.ToJson(message);
-        //dataRef.Push().SetValueAsync(message);
-        print("message was sent");
+        dataRef.Push().SetRawJsonValueAsync(message);       
     }
 
     void HandleValueChanged(object sender, ValueChangedEventArgs args)
-    {
-       
+    {       
         if (args.DatabaseError != null)
         {
             Debug.LogError(args.DatabaseError.Message);
             return;
         }
-        // Do something with the data in args.Snapshot
-        print("вызвали");
-        //string receive = args.Snapshot.GetRawJsonValue();
-        string receive = args.Snapshot.Value.ToString();
-        Message message = JsonUtility.FromJson<Message>(receive);
-        print(message.name);
-        print(receive);
-        //args.Snapshot.GetValue(false).ToString();
-        mainText.text += receive;
+       
+        string receive = args.Snapshot.GetRawJsonValue();   
+        if(!string.IsNullOrEmpty(receive)) PrepairMessages(receive);        
     }
 
+    void PrepairMessages (string Json)
+    {
+        string[] rezult = Json.Split('{', '}');
+        foreach(string str in rezult)
+        {
+            print(str);
+        }
+        
+        if (firstRequest)
+        {
+            
+            for (int i = rezult.Length - 3; (i > rezult.Length - 16) && (i > 1); i -= 2)
+            {
+                if (!string.IsNullOrEmpty(rezult[i]))
+                {
+                    WriteMessage(JsonUtility.FromJson<Message>("{" + rezult[i] + "}"));
+                }
+            }
 
+            firstRequest = false;
+        }               
+        
+        else WriteMessage(JsonUtility.FromJson<Message>("{" + rezult[rezult.Length - 3] + "}"));      //т.к. минимальная длина одного сообщения 4
+
+    }
+
+    void WriteMessage(Message message)
+    {
+        mainText.text += message.name + ": " + message.text + "\n\n";
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
 }
