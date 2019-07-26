@@ -515,8 +515,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2045343264}
   m_HandleRect: {fileID: 2045343263}
   m_Direction: 2
-  m_Value: 1.0000004
-  m_Size: 0.41921046
+  m_Value: 1.0000002
+  m_Size: 0.41921043
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -596,7 +596,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -109.68, y: -120.19995}
+  m_AnchoredPosition: {x: -109.67969, y: -120.19995}
   m_SizeDelta: {x: 219.4, y: 160.3501}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1166919426
@@ -935,15 +935,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7689113140134703892, guid: cc964ed0cfd72aa439ec1967dd21b561,
+        type: 3}
+      propertyPath: m_Name
+      value: ScrollArea
+      objectReference: {fileID: 0}
     - target: {fileID: 7689113140134703895, guid: cc964ed0cfd72aa439ec1967dd21b561,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -43.80005
+      value: -43.80078
       objectReference: {fileID: 0}
     - target: {fileID: 7689113140134703895, guid: cc964ed0cfd72aa439ec1967dd21b561,
         type: 3}
       propertyPath: m_SizeDelta.x
       value: -350.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8829417615196723222, guid: cc964ed0cfd72aa439ec1967dd21b561,
+        type: 3}
+      propertyPath: m_TextComponent
+      value: 
+      objectReference: {fileID: 7689113140156616859}
+    - target: {fileID: 8829417615196723222, guid: cc964ed0cfd72aa439ec1967dd21b561,
+        type: 3}
+      propertyPath: m_Text
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8829417613375562562, guid: cc964ed0cfd72aa439ec1967dd21b561,
         type: 3}
@@ -1085,16 +1100,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    - target: {fileID: 8829417615196723222, guid: cc964ed0cfd72aa439ec1967dd21b561,
-        type: 3}
-      propertyPath: m_TextComponent
-      value: 
-      objectReference: {fileID: 7689113140156616859}
-    - target: {fileID: 8829417615196723222, guid: cc964ed0cfd72aa439ec1967dd21b561,
-        type: 3}
-      propertyPath: m_Text
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 7689113140115541776, guid: cc964ed0cfd72aa439ec1967dd21b561,
         type: 3}
       propertyPath: m_IsActive
@@ -1143,7 +1148,7 @@ PrefabInstance:
     - target: {fileID: 8829417613568526005, guid: cc964ed0cfd72aa439ec1967dd21b561,
         type: 3}
       propertyPath: m_Text
-      value: Your name
+      value: Name
       objectReference: {fileID: 0}
     - target: {fileID: 8829417613568526005, guid: cc964ed0cfd72aa439ec1967dd21b561,
         type: 3}
@@ -1267,11 +1272,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 12800000, guid: 74d7f730e5d59f941b8e3fecd44b9a6e,
         type: 3}
-    - target: {fileID: 7689113140134703892, guid: cc964ed0cfd72aa439ec1967dd21b561,
-        type: 3}
-      propertyPath: m_Name
-      value: ScrollArea
-      objectReference: {fileID: 0}
     - target: {fileID: 7689113140134703894, guid: cc964ed0cfd72aa439ec1967dd21b561,
         type: 3}
       propertyPath: m_RaycastTarget

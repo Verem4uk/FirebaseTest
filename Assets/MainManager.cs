@@ -92,7 +92,7 @@ public class MainManager : MonoBehaviour
         if (firstRequest)
         {
             
-            for (int i = rezult.Length - 3; (i > rezult.Length - 16) && (i > 1); i -= 2)
+            for (int i = GetStartIndex(rezult.Length, 6); i < rezult.Length; i += 2)
             {
                 if (!string.IsNullOrEmpty(rezult[i]))
                 {
@@ -105,6 +105,12 @@ public class MainManager : MonoBehaviour
         
         else WriteMessage(JsonUtility.FromJson<Message>("{" + rezult[rezult.Length - 3] + "}"));      //т.к. минимальная длина одного сообщения 4
 
+    }
+
+    int GetStartIndex(int length, int countOfMessage)
+    {
+        if (length - 3 > countOfMessage * 2) return length - 1 - (countOfMessage * 2);
+        else return 2;
     }
 
     void WriteMessage(Message message)
