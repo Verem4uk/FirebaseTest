@@ -19,7 +19,14 @@ public class InterLayer : MonoBehaviour
 
     string myMessage;
     string myName;
-    
+    string room = "roomID";
+
+    private void Start()
+    {
+        //firebaseChat.ConnectToDB(null);
+        firebaseChat.ConnectToDB(room);
+    }
+
     public void PrepareMessage()
     {
         if (string.IsNullOrEmpty(myName)) ChangeMyName();

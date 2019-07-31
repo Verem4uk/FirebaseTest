@@ -26,16 +26,12 @@ public class FirebaseChat : MonoBehaviour
             this.text = text;
         }
     }
-
-    private void Start()
-    {
-        ConnectToDB();
-    }
-
-    public void ConnectToDB()
+    
+    public void ConnectToDB(string room)
     {
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://testchat-b3f0a.firebaseio.com/");
-        dataRef = FirebaseDatabase.DefaultInstance.GetReference("messages");
+        if (string.IsNullOrEmpty(room)) room = "global";
+        dataRef = FirebaseDatabase.DefaultInstance.GetReference(room);
         dataRef.ValueChanged += HandleValueChanged;
     }
     
